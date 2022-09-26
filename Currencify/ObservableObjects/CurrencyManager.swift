@@ -69,4 +69,12 @@ class CurrencyManager: ObservableObject {
         }
         isPresentError = true
     }
+    
+    init() {
+        print("Init message: loaded Currency Manager")
+    }
+    
+    deinit {
+        print("Deinit message: unloaded Currency Manager")
+    }
 }

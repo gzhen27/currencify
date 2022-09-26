@@ -8,14 +8,28 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var isPresentSheet = false
+    
+    var body: some View {
+        VStack {
+            Spacer()
+            Button("Test Endpoints") {
+                isPresentSheet.toggle()
+            }
+            Spacer()
+        }
+        .padding()
+        .sheet(isPresented: $isPresentSheet) {
+            TestEndpointView()
+        }
+    }
+}
+
+struct TestEndpointView: View {
     @StateObject var currencyManager = CurrencyManager()
     
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Spacer()
             if let response = currencyManager.convertResponse {
                 Text("\(response.from) \(response.amount)")
                 Text("To: \(response.to)")
@@ -38,9 +52,7 @@ struct ContentView: View {
             Button("Get latest for USD") {
                 currencyManager.getLatest(for: "USD")
             }
-            Spacer()
         }
-        .padding()
         .alert(isPresented: $currencyManager.isPresentError) {
             Alert(
                 title: Text("Error Occurs"),
