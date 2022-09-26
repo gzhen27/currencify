@@ -22,9 +22,9 @@
 //}
 
 struct LatestResult: Decodable {
-    let response: LatestResponse
+    let response: Response
     
-    struct LatestResponse: Decodable {
+    struct Response: Decodable {
         let date: String
         let base: String
         let rates: [String : Double]

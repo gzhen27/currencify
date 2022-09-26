@@ -24,9 +24,9 @@
 //
 
 struct ConvertResult: Decodable {
-    let response: ConvertResponse
+    let response: Response
 
-    struct ConvertResponse: Decodable {
+    struct Response: Decodable {
         let from: String
         let to: String
         let amount: Int

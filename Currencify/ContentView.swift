@@ -16,13 +16,13 @@ struct ContentView: View {
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
             Spacer()
-            if let response = currencyManager.convertResult?.response {
+            if let response = currencyManager.convertResponse {
                 Text("\(response.from) \(response.amount)")
                 Text("To: \(response.to)")
                 Text("\(response.to) \(response.value)")
             }
             
-            if let response = currencyManager.latestResult?.response {
+            if let response = currencyManager.latestResponse {
                 Text("Code: \(response.base)")
                 Text("Date: \(response.date)")
                 Text("Rate to CNY: \(response.rates["CNY"] ?? 0.0)")

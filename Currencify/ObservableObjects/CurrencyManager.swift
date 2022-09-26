@@ -8,8 +8,8 @@
 import Combine
 
 class CurrencyManager: ObservableObject {
-    @Published var latestResult: LatestResult?
-    @Published var convertResult: ConvertResult?
+    @Published var latestResponse: LatestResult.Response?
+    @Published var convertResponse: ConvertResult.Response?
     @Published var isPresentError: Bool = false
     var errorMessage: String?
     
@@ -24,9 +24,9 @@ class CurrencyManager: ObservableObject {
                 case .failure(let err):
                     self.setErrorStatus(with: err)
                 }
-            } receiveValue: { [unowned self] result in
-                self.latestResult = result
-                print(latestResult?.response.rates ?? [:])
+            } receiveValue: { [unowned self] res in
+                self.latestResponse = res
+                print(latestResponse?.rates ?? [:])
             }
             .store(in: &cancellables)
     }
@@ -40,8 +40,8 @@ class CurrencyManager: ObservableObject {
                 case .failure(let err):
                     self.setErrorStatus(with: err)
                 }
-            } receiveValue: { [unowned self] result in
-                self.convertResult = result
+            } receiveValue: { [unowned self] res in
+                self.convertResponse = res
             }
             .store(in: &cancellables)
     }

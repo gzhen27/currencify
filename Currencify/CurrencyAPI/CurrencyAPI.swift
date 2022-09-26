@@ -16,7 +16,7 @@ class CurrencyAPI {
     private let session = URLSession(configuration: URLSessionConfiguration.default)
     private let decoder = JSONDecoder()
     
-    func getLatest(for currencyCode: String) -> AnyPublisher<LatestResult, Error> {
+    func getLatest(for currencyCode: String) -> AnyPublisher<LatestResult.Response, Error> {
         guard let apiKey = apiKey else {
             return Fail(error: APIError.noApiKey).eraseToAnyPublisher()
         }
@@ -31,6 +31,7 @@ class CurrencyAPI {
                     return data
                 }
                 .decode(type: LatestResult.self, decoder: decoder)
+                .map(\.response)
                 .receive(on: RunLoop.main)
                 .eraseToAnyPublisher()
         } else {
@@ -39,7 +40,7 @@ class CurrencyAPI {
         
     }
     
-    func convert(to: String, from: String, amount: String) -> AnyPublisher<ConvertResult, Error> {
+    func convert(to: String, from: String, amount: String) -> AnyPublisher<ConvertResult.Response, Error> {
         guard let apiKey = apiKey else {
             return Fail(error: APIError.noApiKey).eraseToAnyPublisher()
         }
@@ -54,6 +55,7 @@ class CurrencyAPI {
                     return data
                 }
                 .decode(type: ConvertResult.self, decoder: decoder)
+                .map(\.response)
                 .receive(on: RunLoop.main)
                 .eraseToAnyPublisher()
         } else {
