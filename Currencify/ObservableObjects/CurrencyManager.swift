@@ -64,6 +64,7 @@ class CurrencyManager: ObservableObject {
                 self.errorMessage = err.localizedDescription
             }
         } else {
+            //TODO - need to handle the error to display a proper message
             self.errorMessage = err.localizedDescription
         }
         isPresentError = true
