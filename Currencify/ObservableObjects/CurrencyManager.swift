@@ -8,18 +8,35 @@
 import Combine
 
 class CurrencyManager: ObservableObject {
+    @Published var latestResult: LatestResult?
     @Published var convertResult: ConvertResult?
     @Published var isPresentError: Bool = false
     var errorMessage: String?
     
     private var cancellables: Set<AnyCancellable> = []
     
+    func getLatest(for currencyCode: String) {
+        CurrencyAPI.shared.getLatest(for: currencyCode)
+            .sink { completionStatus in
+                switch completionStatus {
+                case .finished:
+                    print("Get latest for \(currencyCode): \(completionStatus)")
+                case .failure(let err):
+                    self.setErrorStatus(with: err)
+                }
+            } receiveValue: { [unowned self] result in
+                self.latestResult = result
+                print(latestResult?.response.rates ?? [:])
+            }
+            .store(in: &cancellables)
+    }
+    
     func convert(to: String, from: String, amount: String) {
         CurrencyAPI.shared.convert(to: to, from: from, amount: amount)
             .sink { [unowned self] completionStatus in
                 switch completionStatus {
                 case .finished:
-                    print("\(completionStatus)")
+                    print("Converting currency: \(completionStatus)")
                 case .failure(let err):
                     self.setErrorStatus(with: err)
                 }

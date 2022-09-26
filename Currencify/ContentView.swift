@@ -21,6 +21,12 @@ struct ContentView: View {
                 Text("To: \(response.to)")
                 Text("\(response.to) \(response.value)")
             }
+            
+            if let response = currencyManager.latestResult?.response {
+                Text("Code: \(response.base)")
+                Text("Date: \(response.date)")
+                Text("Rate to CNY: \(response.rates["CNY"] ?? 0.0)")
+            }
             Button("Convert CNY") {
                 currencyManager.convert(to: "CNY", from: "USD", amount: "100")
             }
@@ -29,6 +35,9 @@ struct ContentView: View {
                 currencyManager.convert(to: "JPY", from: "USD", amount: "100")
             }
             .padding()
+            Button("Get latest for USD") {
+                currencyManager.getLatest(for: "USD")
+            }
             Spacer()
         }
         .padding()
