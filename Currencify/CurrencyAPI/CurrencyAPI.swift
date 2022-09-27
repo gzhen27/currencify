@@ -85,6 +85,29 @@ class CurrencyAPI {
         }
     }
     
+    func getHistorical(for currencyCode: String, at date: String) -> AnyPublisher<HistoricalResult.Response, Error> {
+        guard let apiKey = apiKey else {
+            return Fail(error: APIError.noApiKey).eraseToAnyPublisher()
+        }
+        
+        if let url = getHistoricalEndpoint(for: currencyCode, at: date, apiKey: apiKey) {
+            return session.dataTaskPublisher(for: url)
+                .tryMap { (data: Data, response: URLResponse) in
+                    if let res = response as? HTTPURLResponse, res.statusCode != 200 {
+                        //TODO - handle api error later
+                        throw APIError.serverError
+                    }
+                    return data
+                }
+                .decode(type: HistoricalResult.self, decoder: decoder)
+                .map(\.response)
+                .receive(on: RunLoop.main)
+                .eraseToAnyPublisher()
+        } else {
+            return Fail(error: APIError.invalidUrl).eraseToAnyPublisher()
+        }
+    }
+    
     // MARK: Helper functions
     private func getLatestEndpoint(for currencyCode: String, apiKey: String) -> URL? {
         let path = "/latest"
@@ -116,5 +139,16 @@ class CurrencyAPI {
         convertUrlComponents?.queryItems = [queryItemTo, queryItemFrom, queryItemAmount, queryItemAPIKey]
         
         return convertUrlComponents?.url
+    }
+    
+    private func getHistoricalEndpoint(for currencyCode: String, at date: String, apiKey: String) -> URL? {
+        let path = "/historical"
+        var historicalUrlComponents = URLComponents(string: "\(baseUrl)\(path)")
+        let queryItemBase = URLQueryItem(name: "base", value: currencyCode)
+        let queryItemDate = URLQueryItem(name: "date", value: date)
+        let queryItemAPIKey = URLQueryItem(name: "api_key", value: apiKey)
+        historicalUrlComponents?.queryItems = [queryItemBase, queryItemDate, queryItemAPIKey]
+        
+        return historicalUrlComponents?.url
     }
 }

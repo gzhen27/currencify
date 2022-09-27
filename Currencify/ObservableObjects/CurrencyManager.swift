@@ -11,6 +11,7 @@ class CurrencyManager: ObservableObject {
     @Published var latestResponse: LatestResult.Response?
     @Published var currenciesReponse: [String : CurrenciesResult.Response.CurrencyDetail]?
     @Published var convertResponse: ConvertResult.Response?
+    @Published var historicalResponse: HistoricalResult.Response?
     @Published var isPresentError: Bool = false
     var errorMessage: String?
     
@@ -59,6 +60,22 @@ class CurrencyManager: ObservableObject {
                 }
             } receiveValue: { [unowned self] res in
                 self.convertResponse = res
+            }
+            .store(in: &cancellables)
+    }
+    
+    func getHistorical(for currencyCode: String, at date: String) {
+        CurrencyAPI.shared.getHistorical(for: currencyCode, at: date)
+            .sink { [unowned self] completionStatus in
+                switch completionStatus {
+                case .finished:
+                    print("Get historical: \(completionStatus)")
+                case .failure(let err):
+                    self.setErrorStatus(with: err)
+                }
+            } receiveValue: { [unowned self] res in
+                self.historicalResponse = res
+                print(res)
             }
             .store(in: &cancellables)
     }

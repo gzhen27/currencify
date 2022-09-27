@@ -56,6 +56,10 @@ struct TestEndpointView: View {
             Button("Get currencies") {
                 currencyManager.getCurrencies(for: "fiat")
             }
+            .padding()
+            Button("Get historical") {
+                currencyManager.getHistorical(for: "USD", at: "2022-08-16")
+            }
         }
         .alert(isPresented: $currencyManager.isPresentError) {
             Alert(

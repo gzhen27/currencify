@@ -17,6 +17,7 @@
 		EB4ECFFE28DE817B00367993 /* ConvertResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ECFFD28DE817B00367993 /* ConvertResult.swift */; };
 		EB87915A28DFF6F300421A8A /* LatestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB87915928DFF6F300421A8A /* LatestResult.swift */; };
 		EBBD536628E27A0500C2812C /* CurrenciesResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBD536528E27A0500C2812C /* CurrenciesResult.swift */; };
+		EBCD14A628E394A0002E70FF /* HistoricalResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCD14A528E394A0002E70FF /* HistoricalResult.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		EB4ECFFD28DE817B00367993 /* ConvertResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertResult.swift; sourceTree = "<group>"; };
 		EB87915928DFF6F300421A8A /* LatestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestResult.swift; sourceTree = "<group>"; };
 		EBBD536528E27A0500C2812C /* CurrenciesResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesResult.swift; sourceTree = "<group>"; };
+		EBCD14A528E394A0002E70FF /* HistoricalResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricalResult.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				EB4ECFFD28DE817B00367993 /* ConvertResult.swift */,
 				EB87915928DFF6F300421A8A /* LatestResult.swift */,
 				EBBD536528E27A0500C2812C /* CurrenciesResult.swift */,
+				EBCD14A528E394A0002E70FF /* HistoricalResult.swift */,
 			);
 			path = DataObjects;
 			sourceTree = "<group>";
@@ -186,6 +189,7 @@
 				EB4ECFED28DE48B600367993 /* ContentView.swift in Sources */,
 				EB36A48228DF9E6500237A92 /* CurrencyManager.swift in Sources */,
 				EB4ECFEB28DE48B600367993 /* CurrencifyApp.swift in Sources */,
+				EBCD14A628E394A0002E70FF /* HistoricalResult.swift in Sources */,
 				EBBD536628E27A0500C2812C /* CurrenciesResult.swift in Sources */,
 				EB4ECFFE28DE817B00367993 /* ConvertResult.swift in Sources */,
 				EB4ECFF928DE534500367993 /* CurrencyAPI.swift in Sources */,
