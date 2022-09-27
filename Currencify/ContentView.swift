@@ -52,6 +52,10 @@ struct TestEndpointView: View {
             Button("Get latest for USD") {
                 currencyManager.getLatest(for: "USD")
             }
+            .padding()
+            Button("Get currencies") {
+                currencyManager.getCurrencies(for: "fiat")
+            }
         }
         .alert(isPresented: $currencyManager.isPresentError) {
             Alert(
@@ -67,6 +71,6 @@ struct TestEndpointView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        TestEndpointView()
     }
 }

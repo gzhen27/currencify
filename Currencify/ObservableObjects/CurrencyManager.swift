@@ -9,6 +9,7 @@ import Combine
 
 class CurrencyManager: ObservableObject {
     @Published var latestResponse: LatestResult.Response?
+    @Published var currenciesReponse: [String : CurrenciesResult.Response.CurrencyDetail]?
     @Published var convertResponse: ConvertResult.Response?
     @Published var isPresentError: Bool = false
     var errorMessage: String?
@@ -27,6 +28,22 @@ class CurrencyManager: ObservableObject {
             } receiveValue: { [unowned self] res in
                 self.latestResponse = res
                 print(latestResponse?.rates ?? [:])
+            }
+            .store(in: &cancellables)
+    }
+    
+    func getCurrencies(for type: String) {
+        CurrencyAPI.shared.getCurrencies(for: type)
+            .sink { completionStatus in
+                switch completionStatus {
+                case .finished:
+                    print("Get currencies: \(completionStatus)")
+                case .failure(let err):
+                    self.setErrorStatus(with: err)
+                }
+            } receiveValue: { [unowned self] res in
+                print("Currencies: \(res)")
+                self.currenciesReponse = res
             }
             .store(in: &cancellables)
     }

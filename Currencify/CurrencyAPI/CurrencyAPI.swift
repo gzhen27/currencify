@@ -37,7 +37,29 @@ class CurrencyAPI {
         } else {
             return Fail(error: APIError.invalidUrl).eraseToAnyPublisher()
         }
+    }
+    
+    func getCurrencies(for type: String) -> AnyPublisher<[String: CurrenciesResult.Response.CurrencyDetail], Error> {
+        guard let apiKey = apiKey else {
+            return Fail(error: APIError.noApiKey).eraseToAnyPublisher()
+        }
         
+        if let url = getCurrenciesEndpoints(for: type, apiKey: apiKey) {
+            return session.dataTaskPublisher(for: url)
+                .tryMap { (data: Data, response: URLResponse) in
+                    if let res = response as? HTTPURLResponse, res.statusCode != 200 {
+                        //TODO - handle api error later
+                        throw APIError.serverError
+                    }
+                    return data
+                }
+                .decode(type: CurrenciesResult.self, decoder: decoder)
+                .map(\.response.fiats)
+                .receive(on: RunLoop.main)
+                .eraseToAnyPublisher()
+        } else {
+            return Fail(error: APIError.invalidUrl).eraseToAnyPublisher()
+        }
     }
     
     func convert(to: String, from: String, amount: String) -> AnyPublisher<ConvertResult.Response, Error> {
@@ -72,6 +94,16 @@ class CurrencyAPI {
         lastestUrlComponents?.queryItems = [queryItemBase, queryItemAPIKey]
         
         return lastestUrlComponents?.url
+    }
+    
+    private func getCurrenciesEndpoints(for type: String, apiKey: String) -> URL? {
+        let path = "/currencies"
+        var currenciesUrlComponents = URLComponents(string: "\(baseUrl)\(path)")
+        let queryItemCurrencyType = URLQueryItem(name: "type", value: type)
+        let queryitemAPIKey = URLQueryItem(name: "api_key", value: apiKey)
+        currenciesUrlComponents?.queryItems = [queryItemCurrencyType, queryitemAPIKey]
+        
+        return currenciesUrlComponents?.url
     }
     
     private func getConvertEndpoint(to: String, from: String, amount: String, apikey: String) -> URL? {
