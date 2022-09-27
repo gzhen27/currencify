@@ -17,6 +17,9 @@ class CurrencyManager: ObservableObject {
     
     private var cancellables: Set<AnyCancellable> = []
     
+    /**
+     usage: currencyManager.getLatest(for: "USD")
+     */
     func getLatest(for currencyCode: String) {
         CurrencyAPI.shared.getLatest(for: currencyCode)
             .sink { completionStatus in
@@ -33,6 +36,9 @@ class CurrencyManager: ObservableObject {
             .store(in: &cancellables)
     }
     
+    /**
+     usage: currencyManager.getCurrencies(for: "fiat")
+     */
     func getCurrencies(for type: String) {
         CurrencyAPI.shared.getCurrencies(for: type)
             .sink { completionStatus in
@@ -49,6 +55,9 @@ class CurrencyManager: ObservableObject {
             .store(in: &cancellables)
     }
     
+    /**
+     usage: currencyManager.convert(to: "CNY", from: "USD", amount: "100")
+     */
     func convert(to: String, from: String, amount: String) {
         CurrencyAPI.shared.convert(to: to, from: from, amount: amount)
             .sink { [unowned self] completionStatus in
@@ -64,6 +73,9 @@ class CurrencyManager: ObservableObject {
             .store(in: &cancellables)
     }
     
+    /**
+     currencyManager.getHistorical(for: "USD", at: "2022-08-16")
+     */
     func getHistorical(for currencyCode: String, at date: String) {
         CurrencyAPI.shared.getHistorical(for: currencyCode, at: date)
             .sink { [unowned self] completionStatus in
