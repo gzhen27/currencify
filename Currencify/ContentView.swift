@@ -10,9 +10,21 @@ import SwiftUI
 struct ContentView: View {
     @StateObject var currencyManager = CurrencyManager()
     
+    private let userInterface = UIDevice.current.userInterfaceIdiom
+    
     var body: some View {
-        VStack {
-            Text("Home Page")
+        GeometryReader { geo in
+            LazyVStack {
+                if userInterface == .phone {
+                    HeaderViewForPhone(size: geo.size)
+                }
+                
+                if userInterface == .pad {
+                    HeaderViewForPad(size: geo.size)
+                }
+
+                Text("Rates Content")
+            }
         }
         .alert(isPresented: $currencyManager.isPresentError) {
             Alert(
@@ -23,6 +35,46 @@ struct ContentView: View {
                 }
             )
         }
+    }
+}
+
+struct HeaderViewForPhone: View {
+    let size: CGSize
+    
+    var body: some View {
+        ZStack {
+            Color.red
+                .ignoresSafeArea()
+            VStack {
+                Circle()
+                    .frame(width: size.width*0.3)
+                RoundedRectangle(cornerRadius: 20)
+                    .frame(width: size.width * 0.4, height: 50)
+                    .padding()
+                Spacer()
+            }
+        }
+        .frame(width: size.width, height: size.height*0.3)
+    }
+}
+
+struct HeaderViewForPad: View {
+    let size: CGSize
+    
+    var body: some View {
+        ZStack {
+            Color.blue
+                .ignoresSafeArea()
+            VStack {
+                HStack {
+                    Circle()
+                        .frame(width: size.width*0.25)
+                        .padding(.leading, size.width*0.1)
+                    Spacer()
+                }
+            }
+        }
+        .frame(width: size.width, height: size.height*0.3)
     }
 }
 
