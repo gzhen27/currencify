@@ -17,6 +17,7 @@
 		EB4ECFFE28DE817B00367993 /* ConvertResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4ECFFD28DE817B00367993 /* ConvertResult.swift */; };
 		EB87915A28DFF6F300421A8A /* LatestResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB87915928DFF6F300421A8A /* LatestResult.swift */; };
 		EBBD536628E27A0500C2812C /* CurrenciesResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBD536528E27A0500C2812C /* CurrenciesResult.swift */; };
+		EBC9F4E52904721F0072C316 /* CurrencyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC9F4E42904721F0072C316 /* CurrencyData.swift */; };
 		EBCD14A628E394A0002E70FF /* HistoricalResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBCD14A528E394A0002E70FF /* HistoricalResult.swift */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +35,7 @@
 		EB4ECFFD28DE817B00367993 /* ConvertResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertResult.swift; sourceTree = "<group>"; };
 		EB87915928DFF6F300421A8A /* LatestResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestResult.swift; sourceTree = "<group>"; };
 		EBBD536528E27A0500C2812C /* CurrenciesResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesResult.swift; sourceTree = "<group>"; };
+		EBC9F4E42904721F0072C316 /* CurrencyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyData.swift; sourceTree = "<group>"; };
 		EBCD14A528E394A0002E70FF /* HistoricalResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricalResult.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -112,6 +114,7 @@
 			children = (
 				EB4ECFF828DE534500367993 /* CurrencyAPI.swift */,
 				EB36A48428DFB28400237A92 /* APIError.swift */,
+				EBC9F4E42904721F0072C316 /* CurrencyData.swift */,
 			);
 			path = CurrencyAPI;
 			sourceTree = "<group>";
@@ -194,6 +197,7 @@
 				EB4ECFFE28DE817B00367993 /* ConvertResult.swift in Sources */,
 				EB4ECFF928DE534500367993 /* CurrencyAPI.swift in Sources */,
 				EB87915A28DFF6F300421A8A /* LatestResult.swift in Sources */,
+				EBC9F4E52904721F0072C316 /* CurrencyData.swift in Sources */,
 				EB36A48528DFB28400237A92 /* APIError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -334,7 +338,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -365,7 +369,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -31,7 +31,6 @@ class CurrencyManager: ObservableObject {
                 }
             } receiveValue: { [unowned self] res in
                 self.latestResponse = res
-                print(latestResponse?.rates ?? [:])
             }
             .store(in: &cancellables)
     }
@@ -39,21 +38,20 @@ class CurrencyManager: ObservableObject {
     /**
      usage: currencyManager.getCurrencies(for: "fiat")
      */
-    func getCurrencies(for type: String) {
-        CurrencyAPI.shared.getCurrencies(for: type)
-            .sink { completionStatus in
-                switch completionStatus {
-                case .finished:
-                    print("Get currencies: \(completionStatus)")
-                case .failure(let err):
-                    self.setErrorStatus(with: err)
-                }
-            } receiveValue: { [unowned self] res in
-                print("Currencies: \(res)")
-                self.currenciesReponse = res
-            }
-            .store(in: &cancellables)
-    }
+//    func getCurrencies(for type: String = "fiat") {
+//        CurrencyAPI.shared.getCurrencies(for: type)
+//            .sink { completionStatus in
+//                switch completionStatus {
+//                case .finished:
+//                    print("Get currencies: \(completionStatus)")
+//                case .failure(let err):
+//                    self.setErrorStatus(with: err)
+//                }
+//            } receiveValue: { [unowned self] res in
+//                self.currenciesReponse = res
+//            }
+//            .store(in: &cancellables)
+//    }
     
     /**
      usage: currencyManager.convert(to: "CNY", from: "USD", amount: "100")
@@ -87,7 +85,6 @@ class CurrencyManager: ObservableObject {
                 }
             } receiveValue: { [unowned self] res in
                 self.historicalResponse = res
-                print(res)
             }
             .store(in: &cancellables)
     }

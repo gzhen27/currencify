@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var currencyManager = CurrencyManager()
+    @State private var currencyCode = "USD"
     
     private let userInterface = UIDevice.current.userInterfaceIdiom
     
@@ -16,7 +17,7 @@ struct ContentView: View {
         GeometryReader { geo in
             LazyVStack {
                 if userInterface == .phone {
-                    HeaderViewForPhone(size: geo.size)
+                    HeaderViewForPhone(currencyManager: currencyManager, currencyCode: $currencyCode, size: geo.size)
                 }
                 
                 if userInterface == .pad {
@@ -39,22 +40,22 @@ struct ContentView: View {
 }
 
 struct HeaderViewForPhone: View {
+    @ObservedObject var currencyManager: CurrencyManager
+    @Binding var currencyCode: String
     let size: CGSize
     
     var body: some View {
         ZStack {
-            Color.red
-                .ignoresSafeArea()
             VStack {
-                Circle()
-                    .frame(width: size.width*0.3)
-                RoundedRectangle(cornerRadius: 20)
-                    .frame(width: size.width * 0.4, height: 50)
-                    .padding()
+                ZStack {
+                    Circle()
+                        .frame(width: 100)
+                    Text(currencyCode)
+                        .foregroundColor(.white)
+                }
                 Spacer()
             }
         }
-        .frame(width: size.width, height: size.height*0.3)
     }
 }
 
