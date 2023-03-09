@@ -25,8 +25,12 @@ struct ContentView: View {
                 }
 
                 Text("Rates Content")
+                Text("\(currencyManager.latestResponse?.base ?? "")")
             }
         }
+//        .task {
+//            currencyManager.getLatest(for: "USD")
+//        }
         .alert(isPresented: $currencyManager.isPresentError) {
             Alert(
                 title: Text("Error Occurs"),
@@ -52,6 +56,7 @@ struct HeaderViewForPhone: View {
                         .frame(width: 100)
                     Text(currencyCode)
                         .foregroundColor(.white)
+                        .font(.title)
                 }
                 Spacer()
             }

@@ -11,7 +11,7 @@ import Combine
 class CurrencyAPI {
     static var shared = CurrencyAPI()
     
-    private let baseUrl = "https://api.currencyscoop.com/v1"
+    private let baseUrl = "https://api.currencybeacon.com/v1"
     private let apiKey: String? = Bundle.main.infoDictionary?["CURRENCY_API_KEY"] as? String
     private let session = URLSession(configuration: URLSessionConfiguration.default)
     private let decoder = JSONDecoder()
